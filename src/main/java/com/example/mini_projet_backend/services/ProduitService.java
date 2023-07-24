@@ -5,6 +5,7 @@ import com.example.mini_projet_backend.dao.ProduitRepository;
 import com.example.mini_projet_backend.entities.Produit;
 import com.example.mini_projet_backend.interfaces.IProduit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,12 @@ public class ProduitService implements IProduit {
     @Override
     public List<Produit> getAllProduits() {
         return produitRepository.findAll();
+    }
+
+    public List<Produit> getAllProduitsWithOrder(String property) {
+        // Récupérer tous les produits depuis la base de données avec un tri ascendant
+        Sort sort = Sort.by(Sort.Direction.ASC, property);
+        return produitRepository.findAll(sort);
     }
 
     @Override
